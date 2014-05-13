@@ -44,13 +44,24 @@ GetFreeAgentBankExplanations <- function(bank.account, ...)
     GetFreeAgentResources("bank_transaction_explanations", bank.account = bank.account, ...),
     column.classes = c(
       url =                as.character,
-      amount =             as.numeric,
+      bank.transaction =   as.character,
       bank.account =       as.character,
+      category =           as.character,
       dated.on =           as.Date,
       description =        as.character,
-      uploaded.at =        as.Date,
-      unexplained.amount = as.numeric,
-      is.manual =          as.logical))
+      gross.value =        as.numeric,
+      sales.tax.rate =     as.numeric,
+      paid.user =          as.character,
+      paid.invoice =       as.character,
+      rebill.type =        as.character,
+      rebill.to.project =  as.character,
+      paid.bill =          as.character,
+      linked.transfer.explanation = as.character,
+      attachment.url =           as.character,
+      attachment.content.src =   as.character,
+      attachment.content.type =  as.character,
+      attachment.file.name =     as.character,
+      attachment.file.size =     as.integer))
     
 #' Creates a new explanation
 #' 

@@ -113,24 +113,22 @@ DataFrameFromJson <- function(json.objects, column.classes) {
   stopifnot(is.list(column.classes))
   stopifnot(all(!is.na(names(column.classes))))
   
+  # flatten objects
+  rows <- lapply(json.objects, function(json.object) {
+    list <- unlist(json.object, recursive=TRUE)
+    names(list) <- chartr("_", ".", names(list))
+    list
+  })
+  
   # create a vector for each column
   vectors <- lapply(names(column.classes), function(column) {
     
     # the json property uses _ instead of .
-    property <- chartr(".", "_", column)
     converter <- column.classes[[column]]
     
-    accessor <- function(json.object) {
-      value <- json.object[[property]]
-      if(is.atomic(value) && !is.null(value)) {
-        value 
-      } else {
-        NA
-      }
-    } 
-    converter(sapply(json.objects, accessor))
+    accessor <- function(row) row[column]
+    converter(sapply(rows, accessor))
   })
   names(vectors) <- names(column.classes)
   as.data.frame(vectors, stringsAsFactors=FALSE)
 }
-
