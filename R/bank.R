@@ -9,6 +9,7 @@ GetFreeAgentBankAccounts <- function()
     column.classes = c(
       url =              as.character,
       opening.balance =  as.numeric,
+      name =             as.character,
       bank.name =        as.character,
       due.on =           as.Date,
       type =             as.character,

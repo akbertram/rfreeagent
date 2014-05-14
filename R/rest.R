@@ -33,6 +33,20 @@ PutOrPostFreeAgentResource <- function(url, json, method = "POST") {
   response
 }
 
+#' Deletes a FreeAgent resource by its URL
+#' 
+#' @export
+DeleteFreeAgentResource <- function(url) {
+  
+  response <- curlPerform(url = url, .opts = list(
+    customrequest = "DELETE",
+    httpheader = c(  'User-Agent' = 'rfreeagent',
+                     'Accept' = 'application/json',
+                     'Authorization' = sprintf("Bearer %s", GetFreeAgentAccessToken()))
+    ))
+  response
+}
+
 #' Fetches a list of FreeAgent resources, optionally requesting additional
 #' pages until the list is complete
 #' 
