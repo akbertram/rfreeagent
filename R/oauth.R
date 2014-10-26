@@ -7,7 +7,9 @@
 #' Get the FreeAgent access token from the 
 #' user's home directory
 GetFreeAgentAccessToken <- function() {
-  credentials <- read.dcf("~/.freeagent.credentials", all = TRUE)
+  credentials.path <- Sys.getenv("FREEAGENT_CREDENTIALS",
+    unset = path.expand("~/.freeagent.credentials"))
+  credentials <- read.dcf(credentials.path, all = TRUE)
   if(is.null(.GlobalEnv$.freeagent.access.token)) {
     RefreshFreeAgentAccessToken(credentials)
   }
